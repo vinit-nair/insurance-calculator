@@ -2,7 +2,6 @@
 
 A comprehensive, UK-compliant life insurance calculator built for Lloyds Banking Group. This application provides accurate insurance coverage recommendations using multiple actuarial methods and real-time UK market data.
 
-![UK Insurance Calculator](https://img.shields.io/badge/UK-Compliant-Yes-brightgreen)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.0-brightgreen)
 ![React](https://img.shields.io/badge/React-18.2.0-blue)
 ![Java](https://img.shields.io/badge/Java-17-orange)
