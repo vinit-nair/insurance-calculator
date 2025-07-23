@@ -1,0 +1,19 @@
+{
+  "short_name": "Insurance Calculator",
+  "name": "Lloyds Life Insurance Calculator",
+  "description": "Calculate your life insurance needs with our comprehensive UK-focused calculator",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#006937",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "categories": ["finance", "insurance", "calculator"],
+  "lang": "en-GB"
+} 

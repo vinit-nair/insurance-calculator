@@ -1,0 +1,70 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /lloyds-insurance-calculator
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+    include-exception: false
+
+spring:
+  application:
+    name: uk-insurance-calculator
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+  security:
+    headers:
+      content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data:; connect-src 'self'"
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  cache:
+    type: simple
+    cache-names:
+      - ukBaseRate
+      - ukInflationRate
+      - abiMarketData
+      - mortalityData
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+logging:
+  level:
+    com.lloyds.insurance: INFO
+    org.springframework.security: WARN
+    org.springframework.web: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/insurance-calculator.log
+
+# Swagger/OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+
+# UK Real-Time Data Configuration
+uk:
+  data:
+    enabled: false  # Set to true to enable real-time data fetching
+    timeout: 5000   # API timeout in milliseconds
+    cache:
+      ttl: 3600     # Cache time-to-live in seconds (1 hour) 

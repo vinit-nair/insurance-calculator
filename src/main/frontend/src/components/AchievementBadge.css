@@ -1,0 +1,326 @@
+/* Achievement Badge Styles */
+
+.achievement-badge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow-light);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+  overflow: hidden;
+}
+
+.achievement-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.achievement-badge.unlocked {
+  border-color: var(--lloyds-green);
+  background: linear-gradient(135deg, var(--white) 0%, var(--lloyds-light-green) 100%);
+}
+
+.achievement-badge.locked {
+  opacity: 0.6;
+  filter: grayscale(50%);
+}
+
+.achievement-badge.locked:hover {
+  transform: none;
+  box-shadow: var(--shadow-light);
+}
+
+/* Badge Sizes */
+.achievement-badge.small {
+  padding: 8px 12px;
+  gap: 8px;
+}
+
+.achievement-badge.small .badge-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.achievement-badge.small .badge-title {
+  font-size: 0.9rem;
+}
+
+.achievement-badge.small .badge-description {
+  font-size: 0.8rem;
+}
+
+.achievement-badge.medium {
+  padding: 16px;
+  gap: 12px;
+}
+
+.achievement-badge.medium .badge-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.achievement-badge.large {
+  padding: 20px;
+  gap: 16px;
+}
+
+.achievement-badge.large .badge-icon {
+  width: 64px;
+  height: 64px;
+}
+
+.achievement-badge.large .badge-title {
+  font-size: 1.3rem;
+}
+
+/* Badge Icon */
+.badge-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--lloyds-green), var(--lloyds-dark-green));
+  color: var(--white);
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.badge-icon.locked {
+  background: linear-gradient(135deg, #ccc, #999);
+}
+
+.badge-icon .icon {
+  position: relative;
+  z-index: 2;
+}
+
+.badge-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.achievement-badge.unlocked .badge-icon::before {
+  left: 100%;
+}
+
+/* Badge Content */
+.badge-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.badge-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.badge-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.badge-points {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.points-earned {
+  color: var(--lloyds-green);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.points-potential {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.points-earned::before {
+  content: '🎉';
+  margin-right: 4px;
+}
+
+.points-potential::before {
+  content: '💎';
+  margin-right: 4px;
+}
+
+/* Unlock Animation */
+.unlock-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 105, 55, 0.95);
+  color: var(--white);
+  z-index: 10;
+  animation: unlockFade 3s ease-in-out;
+}
+
+@keyframes unlockFade {
+  0% { opacity: 0; transform: scale(0.8); }
+  15% { opacity: 1; transform: scale(1.05); }
+  85% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.8); }
+}
+
+.unlock-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  animation: unlockPulse 3s ease-in-out;
+}
+
+@keyframes unlockPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Celebration Burst */
+.celebration-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  pointer-events: none;
+}
+
+.celebration-burst .particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--lloyds-blue);
+  border-radius: 50%;
+  animation: particleBurst 2s ease-out;
+}
+
+.celebration-burst .particle:nth-child(1) {
+  top: 0;
+  left: 50%;
+  animation-delay: 0s;
+}
+
+.celebration-burst .particle:nth-child(2) {
+  top: 25%;
+  right: 0;
+  animation-delay: 0.1s;
+  background: var(--lloyds-green);
+}
+
+.celebration-burst .particle:nth-child(3) {
+  bottom: 0;
+  right: 25%;
+  animation-delay: 0.2s;
+  background: #ffd700;
+}
+
+.celebration-burst .particle:nth-child(4) {
+  bottom: 0;
+  left: 50%;
+  animation-delay: 0.3s;
+  background: var(--lloyds-blue);
+}
+
+.celebration-burst .particle:nth-child(5) {
+  bottom: 25%;
+  left: 0;
+  animation-delay: 0.4s;
+  background: var(--lloyds-green);
+}
+
+.celebration-burst .particle:nth-child(6) {
+  top: 0;
+  left: 25%;
+  animation-delay: 0.5s;
+  background: #ffd700;
+}
+
+@keyframes particleBurst {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2) translateY(-20px);
+    opacity: 0;
+  }
+}
+
+/* Animate class for entrance animation */
+.achievement-badge.animate {
+  animation: badgeEntrance 0.6s ease-out;
+}
+
+@keyframes badgeEntrance {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .achievement-badge {
+    padding: 12px;
+    gap: 10px;
+  }
+  
+  .achievement-badge.large {
+    padding: 16px;
+    gap: 12px;
+  }
+  
+  .badge-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .achievement-badge.large .badge-icon {
+    width: 52px;
+    height: 52px;
+  }
+  
+  .badge-title {
+    font-size: 1rem;
+  }
+  
+  .badge-description {
+    font-size: 0.85rem;
+  }
+} 

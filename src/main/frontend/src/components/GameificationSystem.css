@@ -1,0 +1,292 @@
+/* Simple Gamification System Styles */
+
+.gamification-system.simple {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  max-width: 280px;
+}
+
+/* Tickets Toggle Button */
+.tickets-toggle {
+  background: linear-gradient(135deg, var(--lloyds-green), var(--lloyds-dark-green));
+  color: var(--white);
+  border: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-medium);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.tickets-toggle:hover {
+  background: linear-gradient(135deg, var(--lloyds-dark-green), var(--lloyds-green));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-large);
+}
+
+/* Tickets Panel */
+.tickets-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow-medium);
+  width: 350px;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1001;
+  animation: ticketPanelSlide 0.3s ease-out;
+}
+
+@keyframes ticketPanelSlide {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.tickets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: linear-gradient(135deg, var(--lloyds-light-green), var(--white));
+  border-radius: 12px 12px 0 0;
+}
+
+.tickets-header h3 {
+  margin: 0;
+  color: var(--lloyds-green);
+  font-size: 1.1rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-primary);
+}
+
+.tickets-grid {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Individual Ticket Styles */
+.ticket {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--white);
+  border-radius: 8px;
+  border: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.ticket.completed {
+  border-color: var(--lloyds-green);
+  background: linear-gradient(135deg, var(--white) 0%, var(--lloyds-light-green) 100%);
+  animation: ticketComplete 0.6s ease-out;
+}
+
+@keyframes ticketComplete {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.ticket.pending {
+  opacity: 0.7;
+}
+
+.ticket-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--background-light);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.ticket.completed .ticket-icon {
+  background: var(--lloyds-green);
+  color: var(--white);
+}
+
+.ticket-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.ticket-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 2px 0;
+  line-height: 1.2;
+}
+
+.ticket-description {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.completion-time {
+  font-size: 0.75rem;
+  color: var(--lloyds-green);
+  font-weight: 500;
+}
+
+/* Ticket Stamp */
+.ticket-stamp {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: var(--lloyds-green);
+  color: var(--white);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  transform: rotate(12deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.stamp-text {
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .gamification-system.simple {
+    position: static;
+    max-width: 100%;
+    margin: 16px 0;
+  }
+
+  .tickets-toggle {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .tickets-panel {
+    width: 100%;
+    max-width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+    max-height: 100vh;
+  }
+
+  .tickets-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-radius: 0;
+  }
+
+  .ticket {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .ticket-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .ticket-title {
+    font-size: 0.9rem;
+  }
+
+  .ticket-description {
+    font-size: 0.75rem;
+  }
+
+  .completion-time {
+    font-size: 0.7rem;
+  }
+}
+
+/* Accessibility */
+.tickets-toggle:focus {
+  outline: 2px solid var(--lloyds-green);
+  outline-offset: 2px;
+}
+
+.close-btn:focus {
+  outline: 2px solid var(--lloyds-green);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gamification-system.simple *,
+  .ticket,
+  .tickets-toggle {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .tickets-toggle {
+    background: var(--text-primary);
+    color: var(--white);
+  }
+
+  .tickets-toggle:hover {
+    background: var(--text-secondary);
+  }
+
+  .ticket.completed {
+    border-color: var(--success-color);
+  }
+
+  .ticket.completed .ticket-icon {
+    background: var(--success-color);
+  }
+} 
