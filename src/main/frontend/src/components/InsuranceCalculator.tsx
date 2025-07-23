@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { FormData, FormErrors, InsuranceCalculationResponse } from '../types/InsuranceTypes';
-import { TOOLTIP_CONTENT } from '../constants/TooltipContent';
 import InsuranceService from '../services/InsuranceService';
 import ResultsDisplay from './ResultsDisplay';
-import LoadingSpinner from './LoadingSpinner';
 import ProgressIndicator from './ProgressIndicator';
 import GameificationSystem from './GameificationSystem';
 import InsuranceGlossary from './InsuranceGlossary';
@@ -250,10 +248,7 @@ const InsuranceCalculator: React.FC = () => {
     updateProgress();
   };
 
-  const isSectionCompleted = (sectionId: string): boolean => {
-    // This function can be used to track completion of different sections
-    return true; // For now, always return true
-  };
+  // Removed unused isSectionCompleted function
 
   const handleSectionComplete = (sectionId: string) => {
     console.log(`Section ${sectionId} completed!`);
