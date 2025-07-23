@@ -322,12 +322,7 @@ EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 ```
 
-### Cloud Deployment
-The application is designed to be deployed on:
-- **AWS**: ECS, EKS, or EC2
-- **Azure**: App Service or AKS
-- **Google Cloud**: GKE or Cloud Run
-- **On-Premises**: Traditional server deployment
+
 
 ## 🤝 Contributing
 
@@ -389,13 +384,7 @@ npm install
 mvn clean install -U
 ```
 
-## 📊 Performance Metrics
 
-- **Response Time**: < 2 seconds for calculations
-- **Throughput**: 100+ concurrent users
-- **Availability**: 99.9% uptime
-- **Memory Usage**: < 512MB RAM
-- **CPU Usage**: < 10% under normal load
 
 ## 🔒 Security
 
@@ -406,7 +395,5 @@ mvn clean install -U
 - **Rate Limiting**: API abuse prevention
 
 ---
-
-**Built with ❤️ for Lloyds Banking Group**
 
 *For internal use only. Not for public distribution.* 
