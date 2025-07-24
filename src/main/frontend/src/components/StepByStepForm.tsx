@@ -146,20 +146,6 @@ const StepByStepForm: React.FC<StepByStepFormProps> = ({
               placeholder="e.g., 2 (spouse and children who rely on your income)"
               required
             />
-
-            <InputGroup
-              label="Spouse Income (if applicable)"
-              name="spouseIncome"
-              type="number"
-              value={formData.spouseIncome}
-              onChange={onInputChange}
-              onBlur={onBlur}
-              error={errors.spouseIncome}
-              tooltip={TOOLTIP_CONTENT.spouseIncome}
-              min={0}
-              placeholder="e.g., 35000 (leave blank if no spouse or no income)"
-              prefix="£"
-            />
           </div>
         );
 
@@ -170,31 +156,16 @@ const StepByStepForm: React.FC<StepByStepFormProps> = ({
             <p>We need to understand your current financial obligations.</p>
             
             <InputGroup
-              label="Mortgage Balance"
-              name="mortgage"
+              label="Total Debts"
+              name="totalDebts"
               type="number"
-              value={formData.mortgage}
+              value={formData.totalDebts}
               onChange={onInputChange}
               onBlur={onBlur}
-              error={errors.mortgage}
-              tooltip={TOOLTIP_CONTENT.mortgage}
+              error={errors.totalDebts}
+              tooltip={TOOLTIP_CONTENT.totalDebts}
               min={0}
-              placeholder="e.g., 200000 (remaining mortgage balance)"
-              prefix="£"
-              required
-            />
-
-            <InputGroup
-              label="Other Debts"
-              name="otherDebts"
-              type="number"
-              value={formData.otherDebts}
-              onChange={onInputChange}
-              onBlur={onBlur}
-              error={errors.otherDebts}
-              tooltip={TOOLTIP_CONTENT.otherDebts}
-              min={0}
-              placeholder="e.g., 15000 (personal loans, credit cards, car finance)"
+              placeholder="e.g., 215000 (mortgage + loans + credit cards + car finance)"
               prefix="£"
               required
             />
@@ -320,9 +291,9 @@ const StepByStepForm: React.FC<StepByStepFormProps> = ({
       case 2:
         return formData.annualIncome && formData.monthlyExpenses;
       case 3:
-        return formData.dependents && formData.spouseIncome;
+        return formData.dependents;
       case 4:
-        return formData.mortgage && formData.otherDebts && formData.educationFund && formData.funeralCosts;
+        return formData.totalDebts && formData.educationFund && formData.funeralCosts;
       case 5:
         return true; // Optional field
       case 6:

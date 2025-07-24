@@ -1,0 +1,220 @@
+# Calculation Engine Configuration
+calculations:
+  insurance:
+    type: "life-insurance"
+    description: "UK Life Insurance Calculator with multiple calculation methods"
+    version: "1.0"
+    
+    # Available calculation methods
+    methods:
+      - name: "income-replacement"
+        displayName: "Income Replacement Method"
+        description: "Calculates coverage as a multiple of annual income"
+        formula: "annualIncome * multiplier"
+        multiplier:
+          base: 10
+          adjustments:
+            age:
+              18-25: 1.2
+              26-35: 1.1
+              36-45: 1.0
+              46-55: 0.9
+              56-65: 0.8
+              66-80: 0.7
+            dependents:
+              0: 0.8
+              1-2: 1.0
+              3+: 1.2
+            coveragePeriod:
+              "10": 0.8
+              "15": 0.9
+              "20": 1.0
+              "25": 1.1
+              "30": 1.2
+              "whole": 1.5
+        explanation: "Income Replacement Method: This method calculates coverage as a multiple of your annual income. Base multiplier: 10 years. Adjustments are made based on age, dependents, and coverage period. This ensures your family can maintain their lifestyle without your income."
+        
+      - name: "dime"
+        displayName: "DIME Method"
+        description: "Debt, Income, Mortgage, Education calculation"
+        formula: "totalDebts + incomeNeeds + educationFund"
+        incomeYears:
+          "10": 8
+          "15": 10
+          "20": 12
+          "25": 15
+          "30": 18
+          "whole": 25
+        explanation: "DIME Method breaks down your needs into four categories: Debt, Income replacement, Mortgage, and Education funds."
+        
+      - name: "needs-analysis"
+        displayName: "Needs Analysis Method"
+        description: "Comprehensive analysis of family financial needs"
+        formula: "monthlyExpenses * 12 * yearsOfSupport + funeralCosts + totalDebts - savings"
+        yearsOfSupport:
+          base: 15
+          adjustments:
+            age:
+              18-25: 20
+              26-35: 18
+              36-45: 15
+              46-55: 12
+              56-65: 10
+              66-80: 8
+            dependents:
+              0: 10
+              1-2: 15
+              3+: 20
+        explanation: "Needs Analysis Method calculates the total amount needed to cover ongoing expenses, debts, and final expenses, minus existing savings."
+        
+      - name: "human-life-value"
+        displayName: "Human Life Value Method"
+        description: "Present value of future earnings"
+        formula: "presentValue(annualIncome, workingYears, discountRate)"
+        workingYears:
+          # For term policies: use policy term
+          # For whole life: use full working years (65 - age)
+          termPolicies: "use_policy_term"
+          wholeLife: "use_full_working_years"
+        discountRate: 0.03
+        explanation: "Human Life Value Method calculates the present value of your future earnings potential, considering your working years and a discount rate."
+    
+    # Validation rules
+    validation:
+      required:
+        - "age"
+        - "gender"
+        - "smoking"
+        - "annualIncome"
+        - "monthlyExpenses"
+        - "coveragePeriod"
+      ranges:
+        age:
+          min: 18
+          max: 80
+          message: "Age must be between 18 and 80"
+        dependents:
+          min: 0
+          max: 10
+          message: "Number of dependents must be between 0 and 10"
+        annualIncome:
+          min: 0
+          message: "Annual income must be positive"
+        monthlyExpenses:
+          min: 0
+          message: "Monthly expenses must be positive"
+      patterns:
+        gender:
+          regex: "^(male|female)$"
+          message: "Gender must be 'male' or 'female'"
+        smoking:
+          regex: "^(non-smoker|smoker|ex-smoker)$"
+          message: "Invalid smoking status"
+        coveragePeriod:
+          regex: "^(10|15|20|25|30|whole)$"
+          message: "Invalid coverage period"
+        inflationProtection:
+          regex: "^(yes|no)$"
+          message: "Inflation protection must be 'yes' or 'no'"
+      defaults:
+        existingCoverage: 0.0
+        savings: 0.0
+        totalDebts: 0.0
+        funeralCosts: 4000.0
+        dependents: 0
+        educationFund: 0.0
+        inflationProtection: "no"
+    
+    # Premium calculation configuration
+    premium:
+      baseRate: 0.0012
+      factors:
+        age:
+          source: "age_factor_table"
+          description: "Age-based premium factors"
+        smoking:
+          source: "smoking_factor_table"
+          description: "Smoking status premium factors"
+        gender:
+          source: "gender_factor_table"
+          description: "Gender-based premium factors"
+        coveragePeriod:
+          source: "term_factor_table"
+          description: "Coverage period premium factors"
+        inflationProtection:
+          source: "inflation_factor_table"
+          description: "Inflation protection premium factors"
+      
+      # Premium factor tables
+      factorTables:
+        age_factor_table:
+          18-25: 0.75
+          26-30: 1.0
+          31-35: 1.0
+          36-40: 1.4
+          41-45: 1.4
+          46-50: 2.2
+          51-55: 2.2
+          56-60: 3.5
+          61-65: 3.5
+          66-70: 5.0
+          71-75: 5.0
+          76-80: 5.0
+        
+        smoking_factor_table:
+          "non-smoker": 1.0
+          "ex-smoker": 1.2
+          "smoker": 1.8
+        
+        gender_factor_table:
+          "male": 1.0
+          "female": 0.88
+        
+        term_factor_table:
+          "10": 0.8
+          "15": 0.9
+          "20": 1.0
+          "25": 1.1
+          "30": 1.2
+          "whole": 1.5
+        
+        inflation_factor_table:
+          "no": 1.0
+          "yes": 1.25
+    
+    # Recommendation weights for combining methods
+    recommendation:
+      weights:
+        income-replacement: 0.3
+        dime: 0.25
+        needs-analysis: 0.25
+        human-life-value: 0.2
+      
+      # Minimum and maximum coverage limits
+      limits:
+        minimum: 50000
+        maximum: 10000000
+      
+      # Rounding rules
+      rounding:
+        method: "nearest"
+        increment: 1000
+    
+    # Data sources and transparency
+    dataSources:
+      - name: "ABI Market Data"
+        description: "Association of British Insurers market rates"
+        url: "https://www.abi.org.uk"
+      - name: "UK Mortality Tables"
+        description: "Continuous Mortality Investigation data"
+        url: "https://www.cmi.org.uk"
+      - name: "FCA Guidelines"
+        description: "Financial Conduct Authority regulations"
+        url: "https://www.fca.org.uk"
+    
+    # Performance and caching
+    performance:
+      cacheEnabled: true
+      cacheTTL: 3600
+      maxConcurrentCalculations: 100
+      timeout: 5000 

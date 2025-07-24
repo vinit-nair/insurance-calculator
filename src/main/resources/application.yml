@@ -67,4 +67,8 @@ uk:
     enabled: false  # Set to true to enable real-time data fetching
     timeout: 5000   # API timeout in milliseconds
     cache:
-      ttl: 3600     # Cache time-to-live in seconds (1 hour) 
+      ttl: 3600     # Cache time-to-live in seconds (1 hour)
+
+# Calculation Configuration
+  config:
+    import: classpath:calculation-config.yml 

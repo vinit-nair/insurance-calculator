@@ -15,15 +15,13 @@ export const TOOLTIP_CONTENT: TooltipContent = {
   
   savings: "Liquid assets available to your family including ISAs, savings accounts, and investments (valued at 70%). Excludes property and pensions. UK planning recommends maintaining 6 months expenses as emergency fund.",
   
-  mortgage: "Outstanding mortgage balance that would need to be paid off. This is a major component in debt-based calculations. Consider whether your mortgage already includes life insurance protection.",
-  
-  otherDebts: "All non-mortgage debts including credit cards, personal loans, car finance, and family obligations. Note: UK student loans (Plan 1/2) are typically written off on death, so may not need full coverage.",
+  totalDebts: "All outstanding debts including mortgage balance, credit cards, personal loans, car finance, and other obligations. This combined total ensures all debts are covered. Note: UK student loans (Plan 1/2) are typically written off on death.",
   
   funeralCosts: "Immediate costs your family will face. UK funeral costs average £3,000-£6,000, with basic services around £4,000. London and premium services cost 30-50% more. Consider prepaid plans to fix costs.",
   
   dependents: "People financially dependent on your income, including children, non-working spouse, or supported parents. Each dependent increases coverage needs. UK childcare costs £15,000+ annually per child.",
   
-  spouseIncome: "Your partner's annual income reduces the net income loss to your family. Higher spouse income means lower insurance needs. Consider potential career breaks for childcare when estimating.",
+
   
   educationFund: "Money needed for children's education. UK university costs £27,000-£36,000 per child (3 years) plus £12,000-£15,000 annual living costs. Private school adds £15,000-£40,000 yearly. Education costs rise 4-6% annually.",
   
@@ -48,12 +46,11 @@ export const METHOD_EXPLANATIONS = {
   
   dime: {
     title: "DIME Method",
-    description: "Systematic approach covering four major financial categories",
-    formula: "Debt + Income + Mortgage + Education",
+    description: "Systematic approach covering three major financial categories",
+    formula: "Total Debts + Income + Education",
     details: [
-      "D - Debt: All outstanding debts except mortgage",
-      "I - Income: 10 years of net income replacement",
-      "M - Mortgage: Outstanding mortgage balance",
+      "D - Total Debts: All outstanding debts including mortgage, loans, credit cards",
+      "I - Income: 10 years of income replacement",
       "E - Education: University/school costs for children",
       "Comprehensive: Covers all major financial obligations"
     ]
@@ -77,7 +74,7 @@ export const METHOD_EXPLANATIONS = {
     description: "Economic value of your life based on future earning potential",
     formula: "Present Value of Future Earnings (3% discount rate)",
     details: [
-      "Net Income: Your income minus spouse contribution",
+      "Annual Income: Your total annual income",
       "Working Years: Until retirement (age 65)",
       "Discount Rate: 3% (UK inflation + investment return)",
       "Present Value: Sum of discounted future earnings",

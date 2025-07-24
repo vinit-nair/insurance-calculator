@@ -35,12 +35,9 @@ public class InsuranceCalculationRequest {
     @DecimalMin(value = "0.0", message = "Savings must be positive")
     private Double savings = 0.0;
     
-    @DecimalMin(value = "0.0", message = "Mortgage must be positive")
-    private Double mortgage = 0.0;
-    
-    @DecimalMin(value = "0.0", message = "Other debts must be positive")
-    @JsonProperty("otherDebts")
-    private Double otherDebts = 0.0;
+    @DecimalMin(value = "0.0", message = "Total debts must be positive")
+    @JsonProperty("totalDebts")
+    private Double totalDebts = 0.0;
     
     @DecimalMin(value = "0.0", message = "Funeral costs must be positive")
     @JsonProperty("funeralCosts")
@@ -49,10 +46,6 @@ public class InsuranceCalculationRequest {
     @Min(value = 0, message = "Dependents must be positive")
     @Max(value = 10, message = "Maximum 10 dependents allowed")
     private Integer dependents = 0;
-    
-    @DecimalMin(value = "0.0", message = "Spouse income must be positive")
-    @JsonProperty("spouseIncome")
-    private Double spouseIncome = 0.0;
     
     @DecimalMin(value = "0.0", message = "Education fund must be positive")
     @JsonProperty("educationFund")
@@ -127,20 +120,43 @@ public class InsuranceCalculationRequest {
         this.savings = savings;
     }
 
+    public Double getTotalDebts() {
+        return totalDebts;
+    }
+
+    public void setTotalDebts(Double totalDebts) {
+        this.totalDebts = totalDebts;
+    }
+
+    // Backward compatibility methods - these will be removed in future versions
+    @Deprecated
     public Double getMortgage() {
-        return mortgage;
+        return totalDebts * 0.7; // Assume 70% is mortgage for backward compatibility
     }
 
+    @Deprecated
     public void setMortgage(Double mortgage) {
-        this.mortgage = mortgage;
+        // This method is deprecated and does nothing
     }
 
+    @Deprecated
     public Double getOtherDebts() {
-        return otherDebts;
+        return totalDebts * 0.3; // Assume 30% is other debts for backward compatibility
     }
 
+    @Deprecated
     public void setOtherDebts(Double otherDebts) {
-        this.otherDebts = otherDebts;
+        // This method is deprecated and does nothing
+    }
+
+    @Deprecated
+    public Double getSpouseIncome() {
+        return 0.0; // Default to 0 for backward compatibility
+    }
+
+    @Deprecated
+    public void setSpouseIncome(Double spouseIncome) {
+        // This method is deprecated and does nothing
     }
 
     public Double getFuneralCosts() {
@@ -157,14 +173,6 @@ public class InsuranceCalculationRequest {
 
     public void setDependents(Integer dependents) {
         this.dependents = dependents;
-    }
-
-    public Double getSpouseIncome() {
-        return spouseIncome;
-    }
-
-    public void setSpouseIncome(Double spouseIncome) {
-        this.spouseIncome = spouseIncome;
     }
 
     public Double getEducationFund() {

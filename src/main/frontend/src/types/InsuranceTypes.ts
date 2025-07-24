@@ -6,11 +6,9 @@ export interface InsuranceCalculationRequest {
   monthlyExpenses: number;
   existingCoverage: number;
   savings: number;
-  mortgage: number;
-  otherDebts: number;
+  totalDebts: number;
   funeralCosts: number;
   dependents: number;
-  spouseIncome: number;
   educationFund: number;
   coveragePeriod: '10' | '15' | '20' | '25' | '30' | 'whole';
   inflationProtection: 'yes' | 'no';
@@ -56,11 +54,9 @@ export interface FormData {
   monthlyExpenses: string;
   existingCoverage: string;
   savings: string;
-  mortgage: string;
-  otherDebts: string;
+  totalDebts: string;
   funeralCosts: string;
   dependents: string;
-  spouseIncome: string;
   educationFund: string;
   coveragePeriod: string;
   inflationProtection: string;

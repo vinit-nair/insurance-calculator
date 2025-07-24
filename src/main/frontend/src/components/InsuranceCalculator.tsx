@@ -35,11 +35,9 @@ const InsuranceCalculator: React.FC = () => {
     monthlyExpenses: '',
     existingCoverage: '',
     savings: '',
-    mortgage: '',
-    otherDebts: '',
+    totalDebts: '',
     funeralCosts: '',
     dependents: '',
-    spouseIncome: '',
     educationFund: '',
     coveragePeriod: '',
     inflationProtection: 'no'
@@ -96,13 +94,10 @@ const InsuranceCalculator: React.FC = () => {
         const deps = parseInt(value);
         if (isNaN(deps) || deps < 0) return 'Number of dependents must be 0 or more';
         break;
-      case 'mortgage':
-        if (!value) return 'Mortgage amount is required';
-        if (parseFloat(value) < 0) return 'Mortgage amount cannot be negative';
-        break;
-      case 'otherDebts':
-        if (!value) return 'Other debts amount is required';
-        if (parseFloat(value) < 0) return 'Other debts cannot be negative';
+
+      case 'totalDebts':
+        if (!value) return 'Total debts amount is required';
+        if (parseFloat(value) < 0) return 'Total debts cannot be negative';
         break;
       case 'educationFund':
         if (!value) return 'Education fund amount is required';
@@ -164,11 +159,9 @@ const InsuranceCalculator: React.FC = () => {
         monthlyExpenses: parseFloat(formData.monthlyExpenses),
         existingCoverage: parseFloat(formData.existingCoverage) || 0,
         savings: parseFloat(formData.savings) || 0,
-        mortgage: parseFloat(formData.mortgage),
-        otherDebts: parseFloat(formData.otherDebts),
+        totalDebts: parseFloat(formData.totalDebts),
         funeralCosts: parseFloat(formData.funeralCosts),
         dependents: parseInt(formData.dependents),
-        spouseIncome: parseFloat(formData.spouseIncome) || 0,
         educationFund: parseFloat(formData.educationFund),
         coveragePeriod: formData.coveragePeriod as '10' | '15' | '20' | '25' | '30' | 'whole',
         inflationProtection: formData.inflationProtection as 'yes' | 'no'
