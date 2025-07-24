@@ -33,6 +33,10 @@ spring:
       - abiMarketData
       - mortalityData
 
+# CORS Configuration - Allow all origins
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:*}
+
 management:
   endpoints:
     web:

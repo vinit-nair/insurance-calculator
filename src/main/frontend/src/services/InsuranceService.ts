@@ -1,9 +1,18 @@
 import axios, { AxiosResponse } from 'axios';
 import { InsuranceCalculationRequest, InsuranceCalculationResponse } from '../types/InsuranceTypes';
 
-const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? '/lloyds-insurance-calculator/api' 
-  : 'http://localhost:8080/lloyds-insurance-calculator/api';
+// Determine API base URL based on environment
+const getApiBaseUrl = (): string => {
+  if (process.env.NODE_ENV === 'production') {
+    // In production, use relative path to avoid CORS issues
+    return '/lloyds-insurance-calculator/api';
+  } else {
+    // In development, use localhost
+    return 'http://localhost:8080/lloyds-insurance-calculator/api';
+  }
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 // Create axios instance with security defaults
 const apiClient = axios.create({
@@ -69,6 +78,8 @@ export class InsuranceService {
         throw new Error('Service temporarily unavailable. Please try again later.');
       } else if (error.code === 'ECONNABORTED') {
         throw new Error('Request timeout. Please check your connection and try again.');
+      } else if (error.response?.status === 0 || error.code === 'ERR_NETWORK') {
+        throw new Error('Network error. Please check your connection and try again.');
       } else {
         throw new Error('Unable to calculate insurance. Please try again later.');
       }
@@ -83,7 +94,6 @@ export class InsuranceService {
       return false;
     }
   }
-
 
 }
 
